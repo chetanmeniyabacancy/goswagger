@@ -1,0 +1,191 @@
+{
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Comapany Api:",
+    "version": "0.0.1"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "paths": {
+    "/admin/company/": {
+      "post": {
+        "security": [
+          {
+            "apiKey": [
+              "[]"
+            ]
+          }
+        ],
+        "description": "Create a new company",
+        "tags": [
+          "admin"
+        ],
+        "operationId": "addCompany",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "description": "name: body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReqAddCompany"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GetCompany"
+          },
+          "401": {
+            "$ref": "#/responses/CommonError"
+          }
+        }
+      }
+    },
+    "/admin/company/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": [
+              "[]"
+            ]
+          }
+        ],
+        "description": "Get companies list",
+        "tags": [
+          "admin"
+        ],
+        "operationId": "listCompany",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GetCompanies"
+          },
+          "401": {
+            "$ref": "#/responses/CommonError"
+          }
+        }
+      }
+    },
+    "/admin/company/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": [
+              "[]"
+            ]
+          }
+        ],
+        "description": "Edit a company",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "tags": [
+          "admin"
+        ],
+        "operationId": "editCompany",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Id",
+            "description": "name: id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "description": "name: Name",
+            "name": "name",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Status",
+            "description": "name: Status",
+            "name": "status",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GetCompany"
+          },
+          "401": {
+            "$ref": "#/responses/CommonError"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": [
+              "[]"
+            ]
+          }
+        ],
+        "description": "Delete company",
+        "tags": [
+          "admin"
+        ],
+        "operationId": "deleteCompany",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Id",
+            "description": "name: id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/CommonSuccess"
+          },
+          "401": {
+            "$ref": "#/responses/CommonError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ReqAddCompany": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the company\nin: string",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "status": {
+          "description": "Status of the company\nin: int64",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "goswagger/models"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "authorization",
+      "in": "header"
+    }
+  }
+}

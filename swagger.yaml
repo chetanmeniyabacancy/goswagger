@@ -1,0 +1,244 @@
+basePath: /
+definitions:
+  CommonError:
+    properties:
+      message:
+        description: |-
+          Message of the error
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: goswagger/controllers
+  CommonSuccess:
+    properties:
+      message:
+        description: |-
+          Message of the error
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: goswagger/controllers
+  Companies:
+    items:
+      $ref: '#/definitions/Company'
+    type: array
+    x-go-package: goswagger/models
+  Company:
+    properties:
+      id:
+        description: |-
+          Id of the company
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Id
+      name:
+        description: |-
+          Name of the company
+          in: string
+        type: string
+        x-go-name: Name
+      status:
+        description: |-
+          Status of the company
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: goswagger/models
+  GetCompanies:
+    properties:
+      data:
+        $ref: '#/definitions/Companies'
+      message:
+        description: |-
+          Message of the response
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: goswagger/controllers
+  GetCompany:
+    properties:
+      data:
+        $ref: '#/definitions/Company'
+      message:
+        description: |-
+          Message of the response
+          in: string
+        type: string
+        x-go-name: Message
+      status:
+        description: |-
+          Status of the error
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: goswagger/controllers
+  ReqAddCompany:
+    properties:
+      name:
+        description: |-
+          Name of the company
+          in: string
+        type: string
+        x-go-name: Name
+      status:
+        description: |-
+          Status of the company
+          in: int64
+        format: int64
+        type: integer
+        x-go-name: Status
+    type: object
+    x-go-package: goswagger/models
+host: localhost:5000
+info:
+  title: 'Comapany Api:'
+  version: 0.0.1
+paths:
+  /admin/company/:
+    get:
+      description: Get companies list
+      operationId: listCompany
+      responses:
+        "200":
+          description: GetCompanies
+          schema:
+            $ref: '#/definitions/GetCompanies'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+      tags:
+      - admin
+    post:
+      description: Create a new company
+      operationId: addCompany
+      parameters:
+      - description: 'name: body'
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReqAddCompany'
+        x-go-name: Body
+      responses:
+        "200":
+          description: GetCompany
+          schema:
+            $ref: '#/definitions/GetCompany'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+      tags:
+      - admin
+  /admin/company/{id}:
+    delete:
+      description: Delete company
+      operationId: deleteCompany
+      parameters:
+      - description: 'name: id'
+        in: path
+        name: id
+        required: true
+        type: string
+        x-go-name: Id
+      responses:
+        "200":
+          description: CommonSuccess
+          schema:
+            $ref: '#/definitions/CommonSuccess'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+      tags:
+      - admin
+    put:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: Edit a company
+      operationId: editCompany
+      parameters:
+      - description: 'name: id'
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+        x-go-name: Id
+      - description: 'name: Name'
+        in: formData
+        name: name
+        required: true
+        type: string
+        x-go-name: Name
+      - description: 'name: Status'
+        format: int64
+        in: formData
+        name: status
+        required: true
+        type: integer
+        x-go-name: Status
+      responses:
+        "200":
+          description: GetCompany
+          schema:
+            $ref: '#/definitions/GetCompany'
+        "401":
+          description: CommonError
+          schema:
+            $ref: '#/definitions/CommonError'
+      security:
+      - apiKey:
+        - '[]'
+      tags:
+      - admin
+produces:
+- application/json
+schemes:
+- http
+- https
+securityDefinitions:
+  apiKey:
+    in: header
+    name: authorization
+    type: apiKey
+swagger: "2.0"
