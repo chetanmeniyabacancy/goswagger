@@ -1,7 +1,7 @@
 package lang
 
 import (
-    "golang-master/constants"
+    "goswagger/constants"
 )
 
 type Tags map[string]Texts

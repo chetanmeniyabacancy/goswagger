@@ -27,9 +27,6 @@ func main() {
 	// opts1 := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
 	// sh1 := middleware.Redoc(opts1, nil)
 	// r.Handle("/docs", sh1)
-	// opts2 := middleware.RapiDocOpts{SpecURL: "/swagger.yaml"}
-	// sh2 := middleware.RapiDoc(opts2, nil)
-	// r.Handle("/docs", sh2)
 
 	company := r.PathPrefix("/admin/company").Subrouter()
 	company.HandleFunc("/", hsqlx.PostCompanySqlx).Methods("POST")
