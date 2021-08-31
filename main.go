@@ -1,4 +1,4 @@
-	package main
+package main
 
 import (
 	"fmt"
@@ -19,14 +19,14 @@ func main() {
 	r.Handle("/swagger.yaml", http.FileServer(http.Dir("./")))
 
 	// documentation for developers
-	 opts := middleware.SwaggerUIOpts{SpecURL: "/swagger.yaml"}
-	 sh := middleware.SwaggerUI(opts, nil)
-	 r.Handle("/docs", sh)
+	opts := middleware.SwaggerUIOpts{SpecURL: "/swagger.yaml"}
+	sh := middleware.SwaggerUI(opts, nil)
+	r.Handle("/docs", sh)
 
 	// documentation for share
-	// opts1 := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
-	// sh1 := middleware.Redoc(opts1, nil)
-	// r.Handle("/docs", sh1)
+	opts1 := middleware.RedocOpts{SpecURL: "/swagger.yaml", Path: "docs1"}
+	sh1 := middleware.Redoc(opts1, nil)
+	r.Handle("/docs1", sh1)
 
 	company := r.PathPrefix("/admin/company").Subrouter()
 	company.HandleFunc("/", hsqlx.PostCompanySqlx).Methods("POST")
